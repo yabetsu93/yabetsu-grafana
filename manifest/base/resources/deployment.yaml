@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name:  yabetsu-grafana
+  labels:
+    name:  yabetsu-grafana
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: yabetsu-grafana
+  template:
+    metadata:
+      labels:
+        app: yabetsu-grafana
+    spec:
+      securityContext:
+        fsGroup: 472
+        supplementalGroups:
+          - 0
+      containers:
+      - name: yabetsu-grafana
+        image: grafana/grafana:7.5.15
+        resources:
+          requests:
+            memory: "1Gi"
+            cpu: "250m"
+          limits:
+            memory: "2Gi"
+            cpu: "500m"
+        ports:
+        - containerPort: 3000
+          name: http-grafana
+          protocol: TCP
+        readinessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /robots.txt
+            port: 3000
+            scheme: HTTP
+          initialDelaySeconds: 10
+          periodSeconds: 30
+          successThreshold: 1
+          timeoutSeconds: 2
+        livenessProbe:
+          failureThreshold: 3
+          initialDelaySeconds: 30
+          successThreshold: 1
+          tcpSocket:
+            port: 3000
+          timeoutSeconds: 10
+        volumeMounts:
+          - mountPath: /var/lib/grafana
+            name: grafana-pv
+      volumes:
+        - name: grafana-pv
+          persistentVolumeClaim:
+            claimName: grafana-pvc
+

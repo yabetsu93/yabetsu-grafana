@@ -1,0 +1,8 @@
+bases:
+  - ../../base
+
+namespace: grafana-prod
+
+patches:
+  - resources/deployment.yaml
+  - resources/namespace.yaml

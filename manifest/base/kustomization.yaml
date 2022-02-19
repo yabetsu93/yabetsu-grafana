@@ -1,0 +1,16 @@
+resources:
+  - resources/deployment.yaml
+  - resources/pvc.yaml
+  - resources/service.yaml
+  - resources/namespace.yaml
+
+commonLabels:
+  project: yabetsu-project
+  type: grafana
+
+namespace: grafana-qa
+
+configMapGenerator:
+- name: grafana-config
+  files:
+    - resources/configmaps.yaml
