@@ -1,0 +1,11 @@
+apiVersion: autoscaling/v2beta2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: yabetsu-grafana-hpa
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: yabetsu-grafana
+  minReplicas: 1
+  maxReplicas: 5
