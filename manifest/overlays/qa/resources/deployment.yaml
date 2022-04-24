@@ -1,13 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name:  yabetsu-grafana
+  name: grafana
   labels:
-    name:  yabetsu-grafana
+    app: grafana
 spec:
-  replicas: 2
-  strategy:
-    rollingUpdate:
-      maxSurge: 25%
-      maxUnavailable: 25%
-    type: RollingUpdate
+  selector:
+    matchLabels:
+      app: grafana
+  template:
+    metadata:
+      labels:
+        app: grafana
+    spec:
+      containers:
+      - name: grafana
+        resources:
+          limits:
+            memory: "3Gi"
+            cpu: "500m"
+          requests:
+            memory: "1Gi"
+            cpu: "250m"
