@@ -1,14 +1,15 @@
-apiVersion: v1
 kind: Service
+apiVersion: v1
 metadata:
-  name: grafana-service
+  name:  grafana
+  labels:
+    app: grafana
 spec:
   selector:
-    app: yabetsu-grafana
+    app:  grafana
+  type:  NodePort
   ports:
-  - port: 3000
-    targetPort: http-grafana
-    protocol: TCP
-  sessionAffinity: None
-  type: LoadBalancer
-  
+  - name:  http-grafana
+    port:  3000
+    targetPort:  3000
+    nodePort: 30081

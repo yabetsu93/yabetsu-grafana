@@ -1,9 +1,11 @@
 apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
-  name: yabetsu-grafana-pdb
+  name: grafana-pdb
+  labels:
+    app: grafana
 spec:
   maxUnavailable: 1
   selector:
     matchLabels:
-      app: yabetsu-grafana
+      app: grafana
