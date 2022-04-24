@@ -23,11 +23,11 @@ spec:
         image: grafana
         resources:
           requests:
-            memory: "3Gi"
+            memory: "10G"
             cpu: "2"
           limits:
-            memory: "6Gi"
-            cpu: "3"
+            memory: "16G"
+            cpu: "4"
         ports:
         - containerPort: 3000
           name: http-grafana
